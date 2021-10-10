@@ -1,0 +1,6 @@
+{
+  "appTitle": "up_the_shelf",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
