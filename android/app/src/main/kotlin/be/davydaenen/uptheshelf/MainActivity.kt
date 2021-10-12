@@ -1,4 +1,4 @@
-package com.example.up_the_shelf
+package be.davydaenen.uptheshelf
 
 import io.flutter.embedding.android.FlutterActivity
 

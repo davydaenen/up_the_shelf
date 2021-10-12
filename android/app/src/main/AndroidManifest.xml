@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.up_the_shelf">
+    package="be.davydaenen.uptheshelf">
    <application
         android:label="up_the_shelf"
         android:icon="@mipmap/ic_launcher">
