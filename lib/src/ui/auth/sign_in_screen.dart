@@ -16,6 +16,30 @@ class _SignInScreenState extends State<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  List<Widget> _socials() {
+    return [
+      MaterialButton(
+        shape: CircleBorder(
+            side: BorderSide(
+                color: Theme.of(context).accentColor,
+                width: 1.5,
+                style: BorderStyle.solid)),
+        color: Theme.of(context).primaryColor,
+        padding: const EdgeInsets.all(20),
+        onPressed: () {},
+        // child: Icon(
+        //   Icons.star,
+        //   size: 25,
+        //   color: Theme.of(context).iconTheme.color,
+        // ),
+        child: SizedBox(
+            width: 25,
+            height: 25,
+            child: Image.asset("assets/images/google-logo.png")),
+      )
+    ];
+  }
+
   @override
   void initState() {
     super.initState();
@@ -119,55 +143,65 @@ class _SignInScreenState extends State<SignInScreen> {
                                 BorderRadius.all(Radius.circular(10)))),
                   ),
                 ),
-                authProvider.status == Status.authenticating
-                    ? const Center(
-                        child: null,
-                      )
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Don\'t have an account?',
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Don\'t have an account?',
+                      style: TextStyle(
+                          fontWeight: FontWeight.normal,
+                          color: Colors.grey[500]),
+                    ),
+                    TextButton(
+                      child: const Text('Sign up'),
+                      onPressed: () {
+                        if (authProvider.status == Status.unauthenticated ||
+                            authProvider.status == Status.uninitialized) {
+                          // Navigator.of(context)
+                          //     .pushReplacementNamed(Routes.register);
+                        }
+                      },
+                    ),
+                  ],
+                ),
+                LargeLongButton(
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        FocusScope.of(context)
+                            .unfocus(); //to hide the keyboard - if any
+
+                        bool status =
+                            await authProvider.signInWithEmailAndPassword(
+                                _emailController.text,
+                                _passwordController.text);
+
+                        if (!status) {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text('Error while signing in'),
+                          ));
+                        }
+
+                        // In case of success
+                        // AuthWidgetBuilder will handle authentication
+                      }
+                    },
+                    loading: authProvider.status == Status.authenticating,
+                    buttonText: 'Sign in'),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('-- Or --',
                             style: TextStyle(
                                 fontWeight: FontWeight.normal,
-                                color: Colors.grey[500]),
-                          ),
-                          TextButton(
-                            child: const Text('Sign up'),
-                            onPressed: () {
-                              // Navigator.of(context)
-                              //     .pushReplacementNamed(Routes.register);
-                            },
-                          ),
-                        ],
-                      ),
-                authProvider.status == Status.authenticating
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : LargeLongButton(
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            FocusScope.of(context)
-                                .unfocus(); //to hide the keyboard - if any
-
-                            bool status =
-                                await authProvider.signInWithEmailAndPassword(
-                                    _emailController.text,
-                                    _passwordController.text);
-
-                            if (!status) {
-                              _scaffoldKey.currentState!
-                                  .showSnackBar(const SnackBar(
-                                content: Text('error logging in'),
-                              ));
-                            } else {
-                              // Navigator.of(context)
-                              //     .pushReplacementNamed(Routes.home);
-                            }
-                          }
-                        },
-                        buttonText: 'Sign in'),
+                                color: Colors.grey[500]))
+                      ]),
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: _socials()),
               ],
             ),
           ),

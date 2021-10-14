@@ -5,7 +5,7 @@ class IconBadge extends StatefulWidget {
   final double size;
   final Color color;
 
-  IconBadge(
+  const IconBadge(
       {Key? key, required this.icon, required this.size, required this.color})
       : super(key: key);
 
@@ -14,8 +14,6 @@ class IconBadge extends StatefulWidget {
 }
 
 class _IconBadgeState extends State<IconBadge> {
-  int counter = 0;
-
   @override
   void initState() {
     super.initState();
