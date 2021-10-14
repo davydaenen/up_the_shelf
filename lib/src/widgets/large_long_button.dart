@@ -33,8 +33,8 @@ class LargeLongButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
         ),
         padding: const EdgeInsets.all(18),
-        color: color ?? Theme.of(context).colorScheme.secondary,
-        disabledColor: Colors.grey[100],
+        color: color ?? Colors.blue,
+        disabledColor: Colors.grey[400],
         onPressed: loading
             ? null
             : (onPressed != null)
@@ -50,8 +50,7 @@ class LargeLongButton extends StatelessWidget {
             Text(
               buttonText,
               style: TextStyle(
-                  fontSize: fontSize ?? 20.0,
-                  color: color ?? Theme.of(context).primaryColor),
+                  fontSize: fontSize ?? 20.0, color: color ?? Colors.white),
             ),
             const SizedBox(width: 20),
             if (loading) const PlatformLoadingIndicator()
