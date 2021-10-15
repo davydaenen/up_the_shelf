@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:up_the_shelf/src/config/app_theme.dart';
 
 class SearchBar extends StatelessWidget {
   final TextEditingController _searchControl = TextEditingController();
@@ -8,43 +9,51 @@ class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.only(left: 20.0),
       decoration: BoxDecoration(
-        color: Colors.blueGrey[50],
+        color: Theme.of(context).backgroundColor,
         borderRadius: const BorderRadius.all(
-          Radius.circular(5.0),
+          Radius.circular(35.0),
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.4),
+            spreadRadius: 3,
+            blurRadius: 7,
+            offset: const Offset(0, 3), // changes position of shadow
+          ),
+        ],
       ),
-      child: TextField(
-        style: TextStyle(
-          fontSize: 15.0,
-          color: Colors.blueGrey[300],
+      child: Theme(
+        data: ThemeData(
+          inputDecorationTheme: const InputDecorationTheme(
+            enabledBorder: InputBorder.none,
+            focusedBorder: InputBorder.none,
+            errorBorder: InputBorder.none,
+            focusedErrorBorder: InputBorder.none,
+          ),
         ),
-        decoration: InputDecoration(
-          contentPadding: const EdgeInsets.all(10.0),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5.0),
-            borderSide: const BorderSide(
-              color: Colors.white,
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: Colors.white,
-            ),
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-          hintText: "E.g: New York, United States",
-          prefixIcon: Icon(
-            Icons.location_on,
-            color: Colors.blueGrey[300],
-          ),
-          hintStyle: TextStyle(
+        child: TextField(
+          style: TextStyle(
             fontSize: 15.0,
-            color: Colors.blueGrey[300],
+            color: AppTheme.blueGrey,
           ),
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.all(25.0),
+            hintText: "Search for books...",
+            prefixIcon: Icon(
+              Icons.search,
+              color: AppTheme.blueGrey,
+              size: 30,
+            ),
+            hintStyle: TextStyle(
+              fontSize: 15.0,
+              color: AppTheme.blueGrey,
+            ),
+          ),
+          maxLines: 1,
+          controller: _searchControl,
         ),
-        maxLines: 1,
-        controller: _searchControl,
       ),
     );
   }

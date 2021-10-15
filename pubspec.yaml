@@ -17,6 +17,7 @@ dependencies:
   cloud_firestore: ^2.5.3
   google_sign_in: ^5.1.1
   provider: ^6.0.1
+  http: ^0.13.4
   shared_preferences: ^2.0.8
   flutter_localizations:
     sdk: flutter
