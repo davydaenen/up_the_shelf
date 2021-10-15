@@ -82,12 +82,13 @@ class MyApp extends StatelessWidget {
                   // themeProviderRef to display the correct theme.
                   theme: AppTheme.lightTheme,
                   darkTheme: AppTheme.darkTheme,
-                  themeMode: themeProviderRef.isDarkModeOn ||
-                          (SchedulerBinding
-                                  .instance!.window.platformBrightness ==
-                              Brightness.dark)
-                      ? ThemeMode.dark
-                      : ThemeMode.light,
+                  // themeMode: themeProviderRef.isDarkModeOn ||
+                  //         (SchedulerBinding
+                  //                 .instance!.window.platformBrightness ==
+                  //             Brightness.dark)
+                  //     ? ThemeMode.dark
+                  //     : ThemeMode.light,
+                  themeMode: ThemeMode.system,
                   home: Consumer<AuthProvider>(
                     builder: (_, authProviderRef, __) {
                       if (userSnapshot.connectionState ==

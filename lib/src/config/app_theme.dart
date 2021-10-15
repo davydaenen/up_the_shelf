@@ -12,6 +12,7 @@ class AppTheme {
   static Color darkBG = Colors.black;
   static Color badgeColor = Colors.red;
   static Color? greyColor = Colors.grey[500];
+  static Color? blueGrey = Colors.blueGrey[300];
   static MaterialColor appColor = Colors.orange;
 
   static ThemeData lightTheme = ThemeData(
