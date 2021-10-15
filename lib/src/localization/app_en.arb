@@ -1,6 +1,15 @@
 {
-  "appTitle": "up_the_shelf",
-  "@appTitle": {
-    "description": "The title of the application"
-  }
+  "appTitle": "Up the Shelf",
+  "screenSignInTitle": "Let's sign in.",
+  "screenSignInSubTitle": "Welcome back.",
+  "screenSignInInputEmailLabel": "Enter your email",
+  "screenSignInInputEmailValidation": "Please enter your email",
+  "screenSignInInputPasswordLabel": "Enter your password",
+  "screenSignInInputPasswordValidation": "Please enter your password",
+  "screenSignInTextNoAccount": "Don't have an account?",
+  "screenSignInTextSignUp": "Sign up",
+  "screenSignInTextSignIn": "Sign in",
+  "screenSignInTextSocialDivider": "-- Or --",
+  "screenSignInTextErrorSignIn": "Error while signing in",
+  "screenSignInTextErrorSignInGoogle": "Error while signing in with Google"
 }
