@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:up_the_shelf/src/ui/home/places_list_view.dart';
-import 'package:up_the_shelf/src/widgets/icon_badge.dart';
+import 'package:up_the_shelf/src/ui/home/books_list_view.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -17,15 +16,16 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme.of(context).backgroundColor,
       ),
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
         controller: _pageController,
         onPageChanged: onPageChanged,
-        children: List.generate(4, (index) => const PlacesListView()),
+        children: List.generate(2, (index) => const BooksListView()),
       ),
       bottomNavigationBar: BottomAppBar(
+        elevation: 20,
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -33,12 +33,10 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(width: 7.0),
             barIcon(icon: Icons.home, page: 0),
             barIcon(icon: Icons.favorite, page: 1),
-            barIcon(icon: Icons.mode_comment, page: 2, badge: true),
-            barIcon(icon: Icons.person, page: 3),
             const SizedBox(width: 7.0),
           ],
         ),
-        color: Theme.of(context).primaryColor,
+        color: Theme.of(context).backgroundColor,
       ),
     );
   }
@@ -65,15 +63,12 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  Widget barIcon(
-      {IconData icon = Icons.home, int page = 0, bool badge = false}) {
+  Widget barIcon({IconData icon = Icons.home, int page = 0}) {
     return IconButton(
-      icon: badge
-          ? IconBadge(
-              icon: icon, size: 24.0, color: Theme.of(context).accentColor)
-          : Icon(icon, size: 24.0),
-      color:
-          _page == page ? Theme.of(context).accentColor : Colors.blueGrey[300],
+      icon: Icon(icon, size: 24.0),
+      color: _page == page
+          ? Theme.of(context).colorScheme.secondary
+          : Colors.blueGrey[300],
       onPressed: () => _pageController.jumpToPage(page),
     );
   }

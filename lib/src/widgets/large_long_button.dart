@@ -30,10 +30,10 @@ class LargeLongButton extends StatelessWidget {
       width: width,
       child: FlatButton(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(15),
         ),
         padding: const EdgeInsets.all(18),
-        color: color ?? Colors.blue,
+        color: color ?? Theme.of(context).colorScheme.primaryVariant,
         disabledColor: Colors.grey[400],
         onPressed: loading
             ? null

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:up_the_shelf/src/widgets/search_bar.dart';
 
-class PlacesListView extends StatelessWidget {
-  const PlacesListView({Key? key}) : super(key: key);
+class BooksListView extends StatelessWidget {
+  const BooksListView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class PlacesListView extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.all(20.0),
             child: Text(
-              "Where are you \ngoing?",
+              "Explore thousands of \nbooks on the go",
               style: TextStyle(
                 fontSize: 30.0,
                 fontWeight: FontWeight.w600,
