@@ -19,10 +19,13 @@ enum PrintType {
 /// Provider for fetching data from Google Books Api
 /// Implementation of this GoogleBooksApiProvider is based on: https://github.com/bdlukaa/books_finder/blob/master/lib/src/books_finder_base.dart
 class GoogleBooksApiProvider extends ChangeNotifier {
-  late List<BookModel> searchResults;
+  List<BookModel> _searchResults = [];
+  List<BookModel> get searchResults => _searchResults;
+
+  String _searchQuery = "";
+  String get searchQuery => _searchQuery;
 
   bool _loading = false;
-
   bool get loading => _loading;
 
   /// Query a list of books
@@ -73,6 +76,7 @@ class GoogleBooksApiProvider extends ChangeNotifier {
     }
 
     _loading = true;
+    _searchQuery = query;
     notifyListeners();
 
     final result = await http.get(Uri.parse(q));
@@ -81,13 +85,20 @@ class GoogleBooksApiProvider extends ChangeNotifier {
       final list = (jsonDecode(result.body))['items'] as List<dynamic>?;
       if (list == null) return [];
       for (var e in list) {
-        books
-            .add(BookModel.fromJson(e, reschemeImageLinks: reschemeImageLinks));
+        final bookModel =
+            BookModel.fromJson(e, reschemeImageLinks: reschemeImageLinks);
+
+        if (bookModel.info.imageLinks.isNotEmpty &&
+            bookModel.info.authors.isNotEmpty) {
+          books.add(bookModel);
+        }
       }
+      _searchResults = books;
       _loading = false;
       notifyListeners();
       return books;
     } else {
+      _searchResults = [];
       _loading = false;
       notifyListeners();
       throw (result.body);
