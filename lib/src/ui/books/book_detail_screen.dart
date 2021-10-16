@@ -11,8 +11,6 @@ class BookDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final imageUrl = book.info.imageLinks['thumbnail']!.toString();
 
-    print(book.info.toString());
-
     final widthHeight = MediaQuery.of(context).size.height * 0.4;
 
     return Scaffold(

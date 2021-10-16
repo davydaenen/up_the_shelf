@@ -3,6 +3,7 @@ import 'package:provider/src/provider.dart';
 import 'package:up_the_shelf/src/config/app_theme.dart';
 import 'package:up_the_shelf/src/utils/helpers/debouncer.dart';
 import 'package:up_the_shelf/src/utils/providers/google_books_api_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchBar extends StatelessWidget {
   final _debouncer = Debouncer(milliseconds: 500);
@@ -58,7 +59,7 @@ class SearchBar extends StatelessWidget {
             ),
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.all(25.0),
-              hintText: "Search for books...",
+              hintText: AppLocalizations.of(context)!.screenSearchBooksInput,
               prefixIcon: Icon(
                 Icons.search,
                 color: AppTheme.blueGrey,

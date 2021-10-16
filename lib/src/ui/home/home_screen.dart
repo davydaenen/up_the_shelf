@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:up_the_shelf/src/ui/books/book_list_favorite_view.dart';
 import 'package:up_the_shelf/src/ui/books/books_list_explore_view.dart';
 import 'package:up_the_shelf/src/utils/providers/google_books_api_provider.dart';
 
@@ -26,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
           physics: const NeverScrollableScrollPhysics(),
           controller: _pageController,
           onPageChanged: onPageChanged,
-          children: List.generate(2, (index) => const BooksListExploreView()),
+          children: const [BooksListExploreView(), BooksListFavoriteView()],
         ),
         bottomNavigationBar: BottomAppBar(
           elevation: 20,
@@ -36,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: <Widget>[
               const SizedBox(width: 7.0),
               barIcon(icon: Icons.home, page: 0),
-              barIcon(icon: Icons.favorite, page: 1),
+              barIcon(icon: Icons.bookmark, page: 1),
               const SizedBox(width: 7.0),
             ],
           ),
