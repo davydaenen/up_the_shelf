@@ -13,5 +13,9 @@
   "screenSignInTextErrorSignIn": "Error while signing in",
   "screenSignInTextErrorSignInGoogle": "Error while signing in with Google",
   "screenBookListExploreTitle": "Explore thousands of \nbooks on the go",
-  "screenBookListExploreSubTitle": "Famous Books"
+  "screenBookListExploreSubTitle": "Famous Books",
+  "screenSearchBooksInput": "Search for books...",
+  "screenSearchBooksTextNoBooksFound": "No books found",
+  "screenBookListFavoriteTitle": "Bookmarked",
+  "screenBookListFavoriteTextNoFavorites": "You have not bookmarked any books, yet!"
 }
