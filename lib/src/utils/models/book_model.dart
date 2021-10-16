@@ -54,7 +54,7 @@ class BookInfo {
   final int pageCount;
 
   /// The categories the book is in
-  final List<String> categories;
+  final List<String>? categories;
 
   /// The average rating
   final double averageRating;
@@ -79,7 +79,7 @@ class BookInfo {
     required this.authors,
     required this.publisher,
     required this.averageRating,
-    required this.categories,
+    this.categories,
     required this.contentVersion,
     required this.description,
     required this.imageLinks,

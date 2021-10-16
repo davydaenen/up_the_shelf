@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:up_the_shelf/src/utils/providers/google_books_api_provider.dart';
 import 'package:up_the_shelf/src/widgets/book_list_card.dart';
 import 'package:up_the_shelf/src/widgets/search_bar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BooksListExploreView extends StatelessWidget {
   const BooksListExploreView({Key? key}) : super(key: key);
@@ -8,27 +11,25 @@ class BooksListExploreView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const _listPadding = EdgeInsets.all(25.0);
+    final googleBooksApiProvider = context.watch<GoogleBooksApiProvider>();
+    final famousBooks = googleBooksApiProvider.fetchFamousBooks();
 
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          // Add the app bar to the CustomScrollView.
           SliverAppBar(
             backgroundColor: Theme.of(context).backgroundColor,
             primary: true,
             pinned: false,
-            // Allows the user to reveal the app bar if they begin scrolling
-            // back up the list of items.
             floating: true,
-            // Display a placeholder widget to visualize the shrinking size.
             flexibleSpace: FlexibleSpaceBar(
               background: Column(
                 children: [
-                  const Padding(
+                  Padding(
                     padding: _listPadding,
                     child: Text(
-                      "Explore thousands of \nbooks on the go",
-                      style: TextStyle(
+                      AppLocalizations.of(context)!.screenBookListExploreTitle,
+                      style: const TextStyle(
                         fontSize: 30.0,
                         fontWeight: FontWeight.w700,
                       ),
@@ -44,12 +45,12 @@ class BooksListExploreView extends StatelessWidget {
             // Make the initial height of the SliverAppBar larger than normal.
             expandedHeight: 250,
           ),
-          const SliverToBoxAdapter(
+          SliverToBoxAdapter(
             child: Padding(
               padding: _listPadding,
               child: Text(
-                "Famous Books",
-                style: TextStyle(
+                AppLocalizations.of(context)!.screenBookListExploreSubTitle,
+                style: const TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.w700,
                 ),
@@ -63,14 +64,11 @@ class BooksListExploreView extends StatelessWidget {
               // displays the index of the current item.
               (context, index) => Padding(
                 padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-                child: ListView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  children: List.generate(5, (i) => const BookListCard()),
-                ),
+                child: BookListCard(book: famousBooks[index]),
               ),
+
+              childCount: famousBooks.length,
               // Builds 1000 ListTiles
-              childCount: 5,
             ),
           )
         ],

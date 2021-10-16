@@ -3,14 +3,24 @@ import 'package:up_the_shelf/src/config/app_theme.dart';
 import 'package:up_the_shelf/src/utils/models/book_model.dart';
 
 class BookListCard extends StatelessWidget {
-  final BookModel? book;
+  final BookModel book;
 
-  const BookListCard({Key? key, this.book}) : super(key: key);
+  const BookListCard({Key? key, required this.book}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final imageUrl = book.info.imageLinks['thumbnail']!.toString();
+    String? category =
+        (book.info.categories != null && book.info.categories!.isNotEmpty)
+            ? book.info.categories![0]
+            : null;
+    print(book.info.toString());
+
+    final widthSize = MediaQuery.of(context).size.width * 0.3;
+    final widthHeight = MediaQuery.of(context).size.height * 0.25;
+
     return SizedBox(
-        height: 200,
+        height: widthHeight,
         width: double.infinity,
         child: Stack(
           fit: StackFit.expand,
@@ -25,8 +35,73 @@ class BookListCard extends StatelessWidget {
                     // }));
                   },
                   splashColor: AppTheme.blueGrey,
-                  child: Container(
-                    padding: const EdgeInsets.all(8.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          width: widthSize,
+                          height: widthHeight,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: NetworkImage(imageUrl),
+                                  fit: BoxFit.cover),
+                              borderRadius: const BorderRadius.all(
+                                  Radius.circular(20.0))),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 20.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('by ${book.info.authors[0]}',
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.normal,
+                                        color: AppTheme.blueGrey!)),
+                                const SizedBox(height: 10),
+                                Text(book.info.title,
+                                    textAlign: TextAlign.start,
+                                    style: const TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w700,
+                                    )),
+                                const SizedBox(height: 10),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.star_rate,
+                                        color: AppTheme.appColor, size: 18),
+                                    Text(book.info.averageRating.toString(),
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                            fontSize: 12.0,
+                                            fontWeight: FontWeight.normal,
+                                            color: AppTheme.blueGrey!))
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
+                                if (category != null)
+                                  SizedBox(
+                                    width: widthSize,
+                                    child: Chip(
+                                      visualDensity: VisualDensity.compact,
+                                      padding: const EdgeInsets.all(0),
+                                      label: Text(category,
+                                          style: const TextStyle(fontSize: 10)),
+                                    ),
+                                  )
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

@@ -11,5 +11,7 @@
   "screenSignInTextSignIn": "Sign in",
   "screenSignInTextSocialDivider": "-- Or --",
   "screenSignInTextErrorSignIn": "Error while signing in",
-  "screenSignInTextErrorSignInGoogle": "Error while signing in with Google"
+  "screenSignInTextErrorSignInGoogle": "Error while signing in with Google",
+  "screenBookListExploreTitle": "Explore thousands of \nbooks on the go",
+  "screenBookListExploreSubTitle": "Famous Books"
 }
