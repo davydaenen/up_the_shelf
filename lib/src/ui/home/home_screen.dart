@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:up_the_shelf/src/ui/home/books_list_explore_view.dart';
+import 'package:up_the_shelf/src/utils/providers/google_books_api_provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -14,29 +16,32 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).backgroundColor,
-      ),
-      body: PageView(
-        physics: const NeverScrollableScrollPhysics(),
-        controller: _pageController,
-        onPageChanged: onPageChanged,
-        children: List.generate(2, (index) => const BooksListExploreView()),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        elevation: 20,
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            const SizedBox(width: 7.0),
-            barIcon(icon: Icons.home, page: 0),
-            barIcon(icon: Icons.favorite, page: 1),
-            const SizedBox(width: 7.0),
-          ],
+    return ChangeNotifierProvider(
+      create: (context) => GoogleBooksApiProvider(),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).backgroundColor,
         ),
-        color: Theme.of(context).backgroundColor,
+        body: PageView(
+          physics: const NeverScrollableScrollPhysics(),
+          controller: _pageController,
+          onPageChanged: onPageChanged,
+          children: List.generate(2, (index) => const BooksListExploreView()),
+        ),
+        bottomNavigationBar: BottomAppBar(
+          elevation: 20,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              const SizedBox(width: 7.0),
+              barIcon(icon: Icons.home, page: 0),
+              barIcon(icon: Icons.favorite, page: 1),
+              const SizedBox(width: 7.0),
+            ],
+          ),
+          color: Theme.of(context).backgroundColor,
+        ),
       ),
     );
   }

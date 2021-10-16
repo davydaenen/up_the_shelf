@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:up_the_shelf/src/utils/models/book_model.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:up_the_shelf/src/utils/models/popular_books.dart';
 
 /// Order the query by `newest` or `relevance`
 enum OrderBy {
@@ -118,5 +119,15 @@ class GoogleBooksApiProvider extends ChangeNotifier {
       notifyListeners();
       throw (result.body);
     }
+  }
+
+  /// Get a static list of famous books.
+  List<BookModel> fetchFamousBooks() {
+    final books = <BookModel>[];
+    for (var e in popularBooks) {
+      books.add(BookModel.fromJson(e, reschemeImageLinks: false));
+    }
+
+    return books;
   }
 }
