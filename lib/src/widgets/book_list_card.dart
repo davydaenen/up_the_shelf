@@ -15,7 +15,6 @@ class BookListCard extends StatelessWidget {
         (book.info.categories != null && book.info.categories!.isNotEmpty)
             ? book.info.categories![0]
             : null;
-    print(book.info.toString());
 
     final widthSize = MediaQuery.of(context).size.width * 0.3;
     final widthHeight = MediaQuery.of(context).size.height * 0.25;
@@ -71,6 +70,8 @@ class BookListCard extends StatelessWidget {
                                 const SizedBox(height: 10),
                                 Text(book.info.title,
                                     textAlign: TextAlign.start,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.fade,
                                     style: const TextStyle(
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.w700,
@@ -92,7 +93,6 @@ class BookListCard extends StatelessWidget {
                                 const SizedBox(height: 10),
                                 if (category != null)
                                   SizedBox(
-                                    width: widthSize,
                                     child: Chip(
                                       visualDensity: VisualDensity.compact,
                                       padding: const EdgeInsets.all(0),

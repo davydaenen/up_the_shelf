@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:up_the_shelf/src/ui/search/search_books_screen.dart';
 import 'package:up_the_shelf/src/utils/providers/google_books_api_provider.dart';
 import 'package:up_the_shelf/src/widgets/book_list_card.dart';
 import 'package:up_the_shelf/src/widgets/search_bar.dart';
@@ -37,13 +38,21 @@ class BooksListExploreView extends StatelessWidget {
                   ),
                   Padding(
                     padding: _listPadding,
-                    child: SearchBar(),
+                    child: SearchBar(
+                      onClickAction: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (_) {
+                          return ChangeNotifierProvider(
+                              create: (context) => GoogleBooksApiProvider(),
+                              child: const SearchBooksScreen());
+                        }));
+                      },
+                    ),
                   ),
                 ],
               ),
             ),
             // Make the initial height of the SliverAppBar larger than normal.
-            expandedHeight: 250,
+            expandedHeight: 200,
           ),
           SliverToBoxAdapter(
             child: Padding(
