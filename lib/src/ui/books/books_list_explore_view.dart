@@ -10,7 +10,7 @@ class BooksListExploreView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const _listPadding = EdgeInsets.all(25.0);
+    const _listPadding = EdgeInsets.all(10.0);
     final googleBooksApiProvider = context.watch<GoogleBooksApiProvider>();
     final famousBooks = googleBooksApiProvider.fetchFamousBooks();
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:up_the_shelf/src/ui/home/books_list_explore_view.dart';
+import 'package:up_the_shelf/src/ui/books/books_list_explore_view.dart';
 import 'package:up_the_shelf/src/utils/providers/google_books_api_provider.dart';
 
 class HomeScreen extends StatefulWidget {

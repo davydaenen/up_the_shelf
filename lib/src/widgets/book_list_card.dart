@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:up_the_shelf/src/config/app_theme.dart';
+import 'package:up_the_shelf/src/ui/books/book_detail_screen.dart';
 import 'package:up_the_shelf/src/utils/models/book_model.dart';
 
 class BookListCard extends StatelessWidget {
@@ -30,9 +31,9 @@ class BookListCard extends StatelessWidget {
               child: Material(
                 child: InkWell(
                   onTap: () {
-                    // Navigator.push(context, MaterialPageRoute(builder: (_) {
-                    //   return Container();
-                    // }));
+                    Navigator.push(context, MaterialPageRoute(builder: (_) {
+                      return BookDetailScreen(book: book);
+                    }));
                   },
                   splashColor: AppTheme.blueGrey,
                   child: Padding(
@@ -40,15 +41,18 @@ class BookListCard extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Container(
-                          width: widthSize,
-                          height: widthHeight,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: NetworkImage(imageUrl),
-                                  fit: BoxFit.cover),
-                              borderRadius: const BorderRadius.all(
-                                  Radius.circular(20.0))),
+                        Hero(
+                          tag: book.id,
+                          child: Container(
+                            width: widthSize,
+                            height: widthHeight,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: NetworkImage(imageUrl),
+                                    fit: BoxFit.cover),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(20.0))),
+                          ),
                         ),
                         Expanded(
                           child: Padding(

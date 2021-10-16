@@ -25,6 +25,11 @@ class AppTheme {
           fontSize: 18.0,
           fontWeight: FontWeight.w800,
         ),
+        titleTextStyle: TextStyle(
+          color: darkBG,
+          fontSize: 18.0,
+          fontWeight: FontWeight.w800,
+        ),
       ),
       colorScheme: ColorScheme.fromSwatch(primarySwatch: appColor)
           .copyWith(secondary: lightAccent, brightness: Brightness.light),
@@ -60,6 +65,11 @@ class AppTheme {
       appBarTheme: AppBarTheme(
         elevation: 0,
         toolbarTextStyle: TextStyle(
+          color: lightBG,
+          fontSize: 18.0,
+          fontWeight: FontWeight.w800,
+        ),
+        titleTextStyle: TextStyle(
           color: lightBG,
           fontSize: 18.0,
           fontWeight: FontWeight.w800,
