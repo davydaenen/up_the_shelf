@@ -12,8 +12,7 @@ class BooksListFavoriteView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const _listPadding = EdgeInsets.all(10.0);
-    final firestoreDatabase =
-        Provider.of<FirestoreDatabase>(context, listen: false);
+    final firestoreDatabase = Provider.of<FirestoreDatabase>(context);
 
     return Scaffold(
       body: CustomScrollView(
@@ -41,7 +40,6 @@ class BooksListFavoriteView extends StatelessWidget {
                 ),
               ),
             ),
-            // Make the initial height of the SliverAppBar larger than normal.
             expandedHeight: 100,
           ),
           StreamBuilder(
@@ -50,35 +48,30 @@ class BooksListFavoriteView extends StatelessWidget {
               if (snapshot.hasData) {
                 List<BookModel> myBooks = snapshot.data as List<BookModel>;
 
-                myBooks.isNotEmpty
+                return myBooks.isNotEmpty
                     ? SliverList(
-                        // Use a delegate to build items as they're scrolled on screen.
                         delegate: SliverChildBuilderDelegate(
-                          // The builder function returns a ListTile with a title that
-                          // displays the index of the current item.
                           (context, index) => Padding(
                             padding:
                                 const EdgeInsets.only(left: 25.0, right: 25.0),
                             child: BookListCard(book: myBooks[index]),
                           ),
-
                           childCount: myBooks.length,
-                          // Builds 1000 ListTiles
                         ),
                       )
-                    : SliverToBoxAdapter(
+                    : SliverFillRemaining(
                         child: Center(
                             child: Text(AppLocalizations.of(context)!
                                 .screenBookListFavoriteTextNoFavorites)),
                       );
+              } else {
+                return SliverFillRemaining(
+                  child: Center(
+                    child: Text(AppLocalizations.of(context)!
+                        .screenBookListFavoriteTextNoFavorites),
+                  ),
+                );
               }
-
-              return SliverFillRemaining(
-                child: Center(
-                  child: Text(AppLocalizations.of(context)!
-                      .screenBookListFavoriteTextNoFavorites),
-                ),
-              );
             },
           )
         ],

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:up_the_shelf/src/config/app_theme.dart';
 import 'package:up_the_shelf/src/utils/models/book_model.dart';
+import 'package:up_the_shelf/src/utils/services/firestore_database.dart';
 
 class BookDetailScreen extends StatelessWidget {
   final BookModel book;
@@ -9,6 +11,7 @@ class BookDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final firestoreDatabase = Provider.of<FirestoreDatabase>(context);
     final imageUrl = book.info.imageLinks['thumbnail']!.toString();
 
     final widthHeight = MediaQuery.of(context).size.height * 0.4;
@@ -28,15 +31,32 @@ class BookDetailScreen extends StatelessWidget {
           child: Icon(Icons.chevron_left, color: AppTheme.blueGrey!),
         ),
         actions: [
-          MaterialButton(
-            elevation: 0.0,
-            visualDensity: VisualDensity.compact,
-            shape: const CircleBorder(),
-            color: Colors.blueGrey.withOpacity(0.1),
-            padding: const EdgeInsets.all(0),
-            onPressed: () => Navigator.of(context).pop(),
-            child: Icon(Icons.bookmark_add_outlined, color: AppTheme.appColor),
-          ),
+          StreamBuilder<BookModel>(
+              stream: firestoreDatabase.bookStream(bookId: book.id),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return MaterialButton(
+                    elevation: 0.0,
+                    visualDensity: VisualDensity.compact,
+                    shape: const CircleBorder(),
+                    color: Colors.blueGrey.withOpacity(0.1),
+                    padding: const EdgeInsets.all(0),
+                    onPressed: () => firestoreDatabase.deleteBook(book),
+                    child: Icon(Icons.bookmark, color: AppTheme.appColor),
+                  );
+                } else {
+                  return MaterialButton(
+                    elevation: 0.0,
+                    visualDensity: VisualDensity.compact,
+                    shape: const CircleBorder(),
+                    color: Colors.blueGrey.withOpacity(0.1),
+                    padding: const EdgeInsets.all(0),
+                    onPressed: () => firestoreDatabase.setBook(book),
+                    child: Icon(Icons.bookmark_add_outlined,
+                        color: AppTheme.appColor),
+                  );
+                }
+              }),
         ],
         backgroundColor: Colors.transparent,
         elevation: 0,

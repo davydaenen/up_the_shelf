@@ -30,8 +30,28 @@ class BookModel {
     );
   }
 
+  factory BookModel.fromDocument(
+    Map<String, dynamic> json, {
+    bool reschemeImageLinks = false,
+  }) {
+    return BookModel(
+      id: json['id'],
+      etag: json['etag'],
+      info: BookInfo.fromJson(
+        json['info'],
+        reschemeImageLinks: reschemeImageLinks,
+      ),
+      selfLink: Uri.parse(json['selfLink']),
+    );
+  }
+
   Map<String, dynamic> toMap() {
-    return {'id': id, 'etag': etag, 'selfLink': selfLink, 'info': info.toMap()};
+    return {
+      'id': id,
+      'etag': etag,
+      'selfLink': selfLink.toString(),
+      'info': info.toMap()
+    };
   }
 }
 
@@ -131,7 +151,9 @@ class BookInfo {
       'maturityRating': maturityRating,
       'pageCount': pageCount,
       'ratingsCount': ratingsCount,
-      'imageLinks': imageLinks
+      'imageLinks': imageLinks.map((key, value) {
+        return MapEntry(key, value.toString());
+      })
     };
   }
 
