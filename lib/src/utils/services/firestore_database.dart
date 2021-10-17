@@ -26,15 +26,18 @@ class FirestoreDatabase {
   }
 
   //Method to retrieve bookModel object based on the given bookId
-  Stream<BookModel> bookStream({required String bookId}) =>
-      _firestoreService.documentStream(
-        path: FirestorePath.book(uid, bookId),
-        builder: (data, documentId) => BookModel.fromJson(data),
-      );
+  Stream<BookModel> bookStream({required String bookId}) {
+    return _firestoreService.documentStream(
+      path: FirestorePath.book(uid, bookId),
+      builder: (data, documentId) => BookModel.fromDocument(data),
+    );
+  }
 
   //Method to retrieve all books from the same user based on uid
-  Stream<List<BookModel>> booksStream() => _firestoreService.collectionStream(
-        path: FirestorePath.books(uid),
-        builder: (data, documentId) => BookModel.fromJson(data),
-      );
+  Stream<List<BookModel>> booksStream() {
+    return _firestoreService.collectionStream(
+      path: FirestorePath.books(uid),
+      builder: (data, documentId) => BookModel.fromDocument(data),
+    );
+  }
 }

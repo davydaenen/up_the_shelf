@@ -51,7 +51,6 @@ class BooksListExploreView extends StatelessWidget {
                 ],
               ),
             ),
-            // Make the initial height of the SliverAppBar larger than normal.
             expandedHeight: 200,
           ),
           SliverToBoxAdapter(
@@ -67,17 +66,12 @@ class BooksListExploreView extends StatelessWidget {
             ),
           ),
           SliverList(
-            // Use a delegate to build items as they're scrolled on screen.
             delegate: SliverChildBuilderDelegate(
-              // The builder function returns a ListTile with a title that
-              // displays the index of the current item.
               (context, index) => Padding(
                 padding: const EdgeInsets.only(left: 25.0, right: 25.0),
                 child: BookListCard(book: famousBooks[index]),
               ),
-
               childCount: famousBooks.length,
-              // Builds 1000 ListTiles
             ),
           )
         ],
