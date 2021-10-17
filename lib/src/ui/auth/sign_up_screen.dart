@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:up_the_shelf/src/config/app_theme.dart';
-import 'package:up_the_shelf/src/ui/auth/sign_up_screen.dart';
 import 'package:up_the_shelf/src/utils/providers/auth_provider.dart';
 import 'package:up_the_shelf/src/widgets/large_long_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({Key? key}) : super(key: key);
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
-  _SignInScreenState createState() => _SignInScreenState();
+  _SignUpScreenState createState() => _SignUpScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
   final _formKey = GlobalKey<FormState>();
@@ -29,6 +28,19 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        leading: MaterialButton(
+          elevation: 0.0,
+          visualDensity: VisualDensity.compact,
+          shape: const CircleBorder(),
+          color: Colors.blueGrey.withOpacity(0.1),
+          padding: const EdgeInsets.all(0),
+          onPressed: () => Navigator.of(context).pop(),
+          child: const Icon(Icons.chevron_left, color: Colors.white),
+        ),
+      ),
       key: _scaffoldKey,
       body: Column(
         children: <Widget>[
@@ -81,16 +93,9 @@ class _SignInScreenState extends State<SignInScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  AppLocalizations.of(context)!.screenSignInTitle,
+                  AppLocalizations.of(context)!.screenSignInTextSignUp,
                   style: const TextStyle(
                       fontSize: 40, fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  AppLocalizations.of(context)!.screenSignInSubTitle,
-                  style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.grey[500]),
                 ),
                 const SizedBox(height: 40),
                 TextFormField(
@@ -127,41 +132,17 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      AppLocalizations.of(context)!.screenSignInTextNoAccount,
-                      style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          color: Colors.grey[500]),
-                    ),
-                    TextButton(
-                      child: Text(
-                          AppLocalizations.of(context)!.screenSignInTextSignUp),
-                      onPressed: () {
-                        if (authProvider.status == Status.unauthenticated ||
-                            authProvider.status == Status.uninitialized) {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (_) {
-                            return const SignUpScreen();
-                          }));
-                        }
-                      },
-                    ),
-                  ],
-                ),
                 LargeLongButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         FocusScope.of(context).unfocus();
 
-                        bool status =
-                            await authProvider.signInWithEmailAndPassword(
+                        final user =
+                            await authProvider.registerWithEmailAndPassword(
                                 _emailController.text,
                                 _passwordController.text);
 
-                        if (!status) {
+                        if (user == null) {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text(AppLocalizations.of(context)!
                                 .screenSignInTextErrorSignIn),
@@ -174,60 +155,10 @@ class _SignInScreenState extends State<SignInScreen> {
                     },
                     loading: authProvider.status == Status.authenticating,
                     buttonText:
-                        AppLocalizations.of(context)!.screenSignInTextSignIn),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                            AppLocalizations.of(context)!
-                                .screenSignInTextSocialDivider,
-                            style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                color: Colors.grey[500]))
-                      ]),
-                ),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: _buildSocialLogins(authProvider)),
+                        AppLocalizations.of(context)!.screenSignInTextSignUp),
               ],
             ),
           ),
         ));
-  }
-
-  List<Widget> _buildSocialLogins(AuthProvider authProvider) {
-    return [
-      MaterialButton(
-        elevation: 0.0,
-        shape: CircleBorder(
-            side: BorderSide(
-                color: AppTheme.greyColor!,
-                width: 2,
-                style: BorderStyle.solid)),
-        color: Theme.of(context).backgroundColor,
-        padding: const EdgeInsets.all(15),
-        onPressed: () async {
-          FocusScope.of(context).unfocus();
-
-          bool status = await authProvider.signInWithGoogle();
-
-          if (!status) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(AppLocalizations.of(context)!
-                  .screenSignInTextErrorSignInGoogle),
-            ));
-          }
-
-          // In case of success
-          // AuthWidgetBuilder will handle authentication
-        },
-        child: SizedBox(
-            width: 20,
-            height: 20,
-            child: Image.asset('assets/images/google-logo.png')),
-      )
-    ];
   }
 }

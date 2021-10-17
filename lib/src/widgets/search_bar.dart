@@ -18,6 +18,8 @@ class SearchBar extends StatelessWidget {
     final googleBooksApiProvider = context.watch<GoogleBooksApiProvider>();
     final TextEditingController _searchControl =
         TextEditingController(text: googleBooksApiProvider.searchQuery);
+    _searchControl.selection = TextSelection.fromPosition(
+        TextPosition(offset: _searchControl.text.length));
 
     return GestureDetector(
       onTap: () {

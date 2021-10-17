@@ -14,7 +14,8 @@ class BookDetailScreen extends StatelessWidget {
     final firestoreDatabase = Provider.of<FirestoreDatabase>(context);
     final imageUrl = book.info.imageLinks['thumbnail']!.toString();
 
-    final widthHeight = MediaQuery.of(context).size.height * 0.4;
+    final imageHeight = MediaQuery.of(context).size.height * 0.3;
+    final imageWidth = MediaQuery.of(context).size.width * 0.6;
 
     return Scaffold(
       appBar: AppBar(
@@ -68,15 +69,19 @@ class BookDetailScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Hero(
-                  tag: book.id,
-                  child: Container(
-                    height: widthHeight,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: NetworkImage(imageUrl), fit: BoxFit.fill),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(20.0))),
+                Align(
+                  alignment: Alignment.center,
+                  child: Hero(
+                    tag: book.id,
+                    child: Container(
+                      height: imageHeight,
+                      width: imageWidth,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: NetworkImage(imageUrl), fit: BoxFit.fill),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(20.0))),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 10),

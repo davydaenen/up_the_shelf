@@ -71,7 +71,7 @@ class AuthProvider extends ChangeNotifier {
   Future<UserModel?> registerWithEmailAndPassword(
       String email, String password) async {
     try {
-      _status = Status.registering;
+      _status = Status.authenticating;
       notifyListeners();
       final UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
