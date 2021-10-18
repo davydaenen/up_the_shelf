@@ -3,6 +3,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'package:up_the_shelf/src/ui/auth/sign_in_screen.dart';
 import 'package:up_the_shelf/src/ui/home/home_screen.dart';
 import 'package:up_the_shelf/src/utils/models/user_model.dart';
@@ -89,6 +90,17 @@ class MyApp extends StatelessWidget {
                   //     ? ThemeMode.dark
                   //     : ThemeMode.light,
                   themeMode: ThemeMode.system,
+                  builder: (context, widget) => ResponsiveWrapper.builder(
+                    widget,
+                    maxWidth: double.infinity,
+                    minWidth: 480,
+                    defaultScale: true,
+                    breakpoints: [
+                      const ResponsiveBreakpoint.resize(480, name: MOBILE),
+                      const ResponsiveBreakpoint.autoScale(800, name: TABLET),
+                      const ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+                    ],
+                  ),
                   home: Consumer<AuthProvider>(
                     builder: (_, authProviderRef, __) {
                       if (userSnapshot.connectionState ==
@@ -99,7 +111,7 @@ class MyApp extends StatelessWidget {
                       }
 
                       return const Material(
-                        child: CircularProgressIndicator(),
+                        child: Center(child: CircularProgressIndicator()),
                       );
                     },
                   ),

@@ -11,7 +11,7 @@ class BooksListExploreView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const _listPadding = EdgeInsets.all(10.0);
+    const _listPadding = EdgeInsets.all(15.0);
     final googleBooksApiProvider = context.watch<GoogleBooksApiProvider>();
     final famousBooks = googleBooksApiProvider.fetchFamousBooks();
 
@@ -25,6 +25,7 @@ class BooksListExploreView extends StatelessWidget {
             floating: true,
             flexibleSpace: FlexibleSpaceBar(
               background: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
                     padding: _listPadding,
@@ -36,6 +37,7 @@ class BooksListExploreView extends StatelessWidget {
                       ),
                     ),
                   ),
+                  const SizedBox(height: 10),
                   Padding(
                     padding: _listPadding,
                     child: SearchBar(
