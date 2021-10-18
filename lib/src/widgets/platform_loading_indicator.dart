@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
 class PlatformLoadingIndicator extends StatelessWidget {
   final double size;
@@ -10,7 +9,8 @@ class PlatformLoadingIndicator extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return (Platform.isIOS || Platform.isMacOS)
+    return (defaultTargetPlatform == TargetPlatform.iOS ||
+            defaultTargetPlatform == TargetPlatform.macOS)
         ? const CupertinoActivityIndicator()
         : SizedBox(
             width: size,

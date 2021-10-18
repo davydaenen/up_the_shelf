@@ -17,7 +17,7 @@ class BookListCard extends StatelessWidget {
             : null;
 
     final widthSize = MediaQuery.of(context).size.width * 0.3;
-    final widthHeight = MediaQuery.of(context).size.height * 0.25;
+    final widthHeight = MediaQuery.of(context).size.height * 0.3;
 
     return SizedBox(
         height: widthHeight,

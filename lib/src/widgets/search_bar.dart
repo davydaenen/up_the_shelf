@@ -5,26 +5,29 @@ import 'package:up_the_shelf/src/utils/helpers/debouncer.dart';
 import 'package:up_the_shelf/src/utils/providers/google_books_api_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class SearchBar extends StatelessWidget {
-  final _debouncer = Debouncer(milliseconds: 500);
+class SearchBar extends StatefulWidget {
   final VoidCallback? onClickAction;
   final bool autoFocus;
 
-  SearchBar({Key? key, this.autoFocus = false, this.onClickAction})
+  const SearchBar({Key? key, this.autoFocus = false, this.onClickAction})
       : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _SearchBarState();
+}
+
+class _SearchBarState extends State<SearchBar> {
+  final TextEditingController _searchControl = TextEditingController();
+  final _debouncer = Debouncer(milliseconds: 400);
 
   @override
   Widget build(BuildContext context) {
     final googleBooksApiProvider = context.watch<GoogleBooksApiProvider>();
-    final TextEditingController _searchControl =
-        TextEditingController(text: googleBooksApiProvider.searchQuery);
-    _searchControl.selection = TextSelection.fromPosition(
-        TextPosition(offset: _searchControl.text.length));
 
     return GestureDetector(
       onTap: () {
-        if (onClickAction != null) {
-          onClickAction!();
+        if (widget.onClickAction != null) {
+          widget.onClickAction!();
         }
       },
       child: Container(
@@ -53,8 +56,8 @@ class SearchBar extends StatelessWidget {
             ),
           ),
           child: TextField(
-            autofocus: autoFocus,
-            enabled: onClickAction == null,
+            autofocus: widget.autoFocus,
+            enabled: widget.onClickAction == null,
             style: TextStyle(
               fontSize: 15.0,
               color: AppTheme.blueGrey,
