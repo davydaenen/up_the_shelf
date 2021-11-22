@@ -207,7 +207,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 width: 2,
                 style: BorderStyle.solid)),
         color: Theme.of(context).backgroundColor,
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.all(25),
         onPressed: () async {
           FocusScope.of(context).unfocus();
 
