@@ -11,21 +11,20 @@ class BooksListFavoriteView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const _listPadding = EdgeInsets.all(10.0);
     final firestoreDatabase = Provider.of<FirestoreDatabase>(context);
 
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            backgroundColor: Theme.of(context).backgroundColor,
-            primary: true,
-            pinned: false,
-            floating: true,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Padding(
-                padding: _listPadding,
-                child: Row(
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              backgroundColor: Theme.of(context).backgroundColor,
+              primary: true,
+              pinned: false,
+              floating: true,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Row(
                   children: [
                     Icon(Icons.bookmark, size: 40, color: AppTheme.appColor),
                     const SizedBox(width: 10),
@@ -39,42 +38,42 @@ class BooksListFavoriteView extends StatelessWidget {
                   ],
                 ),
               ),
+              expandedHeight: 100,
             ),
-            expandedHeight: 100,
-          ),
-          StreamBuilder(
-            stream: firestoreDatabase.booksStream(),
-            builder: (ctx, snapshot) {
-              if (snapshot.hasData) {
-                List<BookModel> myBooks = snapshot.data as List<BookModel>;
+            StreamBuilder(
+              stream: firestoreDatabase.booksStream(),
+              builder: (ctx, snapshot) {
+                if (snapshot.hasData) {
+                  List<BookModel> myBooks = snapshot.data as List<BookModel>;
 
-                return myBooks.isNotEmpty
-                    ? SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          (context, index) => Padding(
-                            padding:
-                                const EdgeInsets.only(left: 25.0, right: 25.0),
-                            child: BookListCard(book: myBooks[index]),
+                  return myBooks.isNotEmpty
+                      ? SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) => Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 25.0, right: 25.0),
+                              child: BookListCard(book: myBooks[index]),
+                            ),
+                            childCount: myBooks.length,
                           ),
-                          childCount: myBooks.length,
-                        ),
-                      )
-                    : SliverFillRemaining(
-                        child: Center(
-                            child: Text(AppLocalizations.of(context)!
-                                .screenBookListFavoriteTextNoFavorites)),
-                      );
-              } else {
-                return SliverFillRemaining(
-                  child: Center(
-                    child: Text(AppLocalizations.of(context)!
-                        .screenBookListFavoriteTextNoFavorites),
-                  ),
-                );
-              }
-            },
-          )
-        ],
+                        )
+                      : SliverFillRemaining(
+                          child: Center(
+                              child: Text(AppLocalizations.of(context)!
+                                  .screenBookListFavoriteTextNoFavorites)),
+                        );
+                } else {
+                  return SliverFillRemaining(
+                    child: Center(
+                      child: Text(AppLocalizations.of(context)!
+                          .screenBookListFavoriteTextNoFavorites),
+                    ),
+                  );
+                }
+              },
+            )
+          ],
+        ),
       ),
     );
   }

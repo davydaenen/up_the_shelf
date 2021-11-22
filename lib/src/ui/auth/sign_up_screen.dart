@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:up_the_shelf/src/config/app_theme.dart';
 import 'package:up_the_shelf/src/utils/providers/auth_provider.dart';
 import 'package:up_the_shelf/src/widgets/large_long_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

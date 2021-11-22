@@ -33,7 +33,7 @@ class SearchBooksScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SearchBar(
+              const SearchBar(
                 autoFocus: true,
               ),
               const SizedBox(height: 10),

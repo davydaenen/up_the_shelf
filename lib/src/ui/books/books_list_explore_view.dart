@@ -11,72 +11,72 @@ class BooksListExploreView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const _listPadding = EdgeInsets.all(15.0);
     final googleBooksApiProvider = context.watch<GoogleBooksApiProvider>();
     final famousBooks = googleBooksApiProvider.fetchFamousBooks();
 
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            backgroundColor: Theme.of(context).backgroundColor,
-            primary: true,
-            pinned: false,
-            floating: true,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: _listPadding,
-                    child: Text(
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              backgroundColor: Theme.of(context).backgroundColor,
+              primary: true,
+              pinned: false,
+              floating: true,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
                       AppLocalizations.of(context)!.screenBookListExploreTitle,
                       style: const TextStyle(
                         fontSize: 30.0,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  Padding(
-                    padding: _listPadding,
-                    child: SearchBar(
-                      onClickAction: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (_) {
-                          return ChangeNotifierProvider(
-                              create: (context) => GoogleBooksApiProvider(),
-                              child: const SearchBooksScreen());
-                        }));
-                      },
+                    const SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SearchBar(
+                        onClickAction: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (_) {
+                            return ChangeNotifierProvider(
+                                create: (context) => GoogleBooksApiProvider(),
+                                child: const SearchBooksScreen());
+                          }));
+                        },
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
+              expandedHeight: 180,
             ),
-            expandedHeight: 200,
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: _listPadding,
-              child: Text(
-                AppLocalizations.of(context)!.screenBookListExploreSubTitle,
-                style: const TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.w700,
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 15, right: 15),
+                child: Text(
+                  AppLocalizations.of(context)!.screenBookListExploreSubTitle,
+                  style: const TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             ),
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) => Padding(
-                padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-                child: BookListCard(book: famousBooks[index]),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) => Padding(
+                  padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+                  child: BookListCard(book: famousBooks[index]),
+                ),
+                childCount: famousBooks.length,
               ),
-              childCount: famousBooks.length,
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

@@ -53,6 +53,8 @@ class _SearchBarState extends State<SearchBar> {
               focusedBorder: InputBorder.none,
               errorBorder: InputBorder.none,
               focusedErrorBorder: InputBorder.none,
+              border: InputBorder.none,
+              disabledBorder: InputBorder.none,
             ),
           ),
           child: TextField(
