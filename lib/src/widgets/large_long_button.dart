@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:up_the_shelf/src/widgets/platform_loading_indicator.dart';
 
 class LargeLongButton extends StatelessWidget {
   final VoidCallback? onPressed;
@@ -53,7 +52,11 @@ class LargeLongButton extends StatelessWidget {
                   fontSize: fontSize ?? 20.0, color: color ?? Colors.white),
             ),
             const SizedBox(width: 20),
-            if (loading) const PlatformLoadingIndicator()
+            if (loading)
+              const CircularProgressIndicator.adaptive(
+                backgroundColor: Colors.white,
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.grey),
+              )
           ],
         ),
       ),
