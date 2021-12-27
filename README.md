@@ -1,4 +1,4 @@
-# Up the Shelf [![Flutter Action](https://github.com/davydaenen/up_the_shelf/actions/workflows/flutter.yml/badge.svg?branch=master)](https://github.com/davydaenen/up_the_shelf/actions/workflows/flutter.yml)
+# Up the Shelf [![Flutter Action](https://github.com/davydaenen/up_the_shelf/actions/workflows/flutter.yml/badge.svg)](https://github.com/davydaenen/up_the_shelf/actions/workflows/flutter.yml)
 
 <p align="center">
   <img src="./docs/uptheshelf-logo.png" alt="Up the Shelf logo"/>
