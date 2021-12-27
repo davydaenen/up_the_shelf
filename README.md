@@ -49,7 +49,7 @@ flutter run -d <deviceId>
 In case you want to run for the web:
 
 ```
-flutter run -d chrome --web-hostname localhost --web-port 5000
+flutter run -d chrome --web-hostname localhost --web-port 5000 --web-renderer html
 ```
 
 ## Localization

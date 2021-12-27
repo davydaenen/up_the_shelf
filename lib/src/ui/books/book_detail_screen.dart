@@ -15,7 +15,7 @@ class BookDetailScreen extends StatelessWidget {
     final imageUrl = book.info.imageLinks['thumbnail']!.toString();
 
     final imageHeight = MediaQuery.of(context).size.height * 0.3;
-    final imageWidth = MediaQuery.of(context).size.width * 0.6;
+    final imageWidth = MediaQuery.of(context).size.width * 0.4;
 
     return Scaffold(
       appBar: AppBar(
@@ -86,13 +86,15 @@ class BookDetailScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Flexible(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(book.info.title,
                             textAlign: TextAlign.start,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 3,
                             style: const TextStyle(
                               fontSize: 20.0,
                               fontWeight: FontWeight.w900,
@@ -105,7 +107,8 @@ class BookDetailScreen extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Icon(Icons.star_rate,
-                              color: AppTheme.appColor, size: 30),
+                              color: AppTheme.appColor, size: 25),
+                          const SizedBox(width: 5.0),
                           Text(book.info.averageRating.toString(),
                               textAlign: TextAlign.start,
                               style: TextStyle(
@@ -141,6 +144,8 @@ class BookDetailScreen extends StatelessWidget {
                   Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Wrap(
+                        spacing: 5,
+                        runSpacing: 5,
                         children: book.info.categories!
                             .map((category) => Chip(
                                   label: Text(category,
