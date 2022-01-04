@@ -20,7 +20,7 @@ The name comes from: App and Up + a bookshelf
 
 ## Features
 
-The project status and features were tracked in a github project: [https://github.com/dee-deee/up_the_shelf/projects/1](https://github.com/dee-deee/up_the_shelf/projects/1). You can see which issues are still open and I was not able to complete.
+The project status and features were tracked in a github project: [https://github.com/davydaenen/up_the_shelf/projects/1](https://github.com/davydaenen/up_the_shelf/projects/1). You can see which issues are still open and I was not able to complete.
 
 ## Getting Started
 
