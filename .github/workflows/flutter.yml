@@ -15,9 +15,9 @@ on:
 # Global variables
 #-------------------------#
 # env:
- # SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
- # SLACK_USERNAME: DeployBot
- # SLACK_CHANNEL: general
+# SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+# SLACK_USERNAME: DeployBot
+# SLACK_CHANNEL: general
 
 jobs:
   build:
@@ -31,7 +31,7 @@ jobs:
           java-version: "11"
       - uses: subosito/flutter-action@v1
         with:
-          flutter-version: "2.8.1"
+          flutter-version: "2.10.1"
       - run: flutter pub get
       - run: flutter test
       # - run: flutter build apk
