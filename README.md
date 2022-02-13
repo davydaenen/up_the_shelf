@@ -52,6 +52,12 @@ In case you want to run for the web:
 flutter run -d chrome --web-hostname localhost --web-port 5000 --web-renderer html
 ```
 
+Build for web:
+
+```
+flutter build web --web-renderer html
+```
+
 ## Localization
 
 This project generates localized messages based on arb files found in
