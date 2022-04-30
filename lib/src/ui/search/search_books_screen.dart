@@ -16,14 +16,17 @@ class SearchBooksScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           leadingWidth: 80,
-          leading: MaterialButton(
-            elevation: 0.0,
-            visualDensity: VisualDensity.compact,
-            shape: const CircleBorder(),
-            color: Colors.blueGrey.withOpacity(0.1),
-            padding: const EdgeInsets.all(0),
-            onPressed: () => Navigator.of(context).pop(),
-            child: Icon(Icons.chevron_left, color: AppTheme.blueGrey!),
+          leading: Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: MaterialButton(
+              elevation: 0.0,
+              visualDensity: VisualDensity.compact,
+              shape: const CircleBorder(),
+              color: Colors.blueGrey.withOpacity(0.1),
+              padding: const EdgeInsets.all(0),
+              onPressed: () => Navigator.of(context).pop(),
+              child: Icon(Icons.chevron_left, color: AppTheme.blueGrey!),
+            ),
           ),
           backgroundColor: Colors.transparent,
           elevation: 0,

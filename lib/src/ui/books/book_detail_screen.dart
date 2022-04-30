@@ -22,42 +22,48 @@ class BookDetailScreen extends StatelessWidget {
         title: Text(book.info.title),
         centerTitle: true,
         leadingWidth: 80,
-        leading: MaterialButton(
-          elevation: 0.0,
-          visualDensity: VisualDensity.compact,
-          shape: const CircleBorder(),
-          color: Colors.blueGrey.withOpacity(0.1),
-          padding: const EdgeInsets.all(0),
-          onPressed: () => Navigator.of(context).pop(),
-          child: Icon(Icons.chevron_left, color: AppTheme.blueGrey!),
+        leading: Padding(
+          padding: const EdgeInsets.only(top: 10.0),
+          child: MaterialButton(
+            elevation: 0.0,
+            visualDensity: VisualDensity.compact,
+            shape: const CircleBorder(),
+            color: Colors.blueGrey.withOpacity(0.1),
+            padding: const EdgeInsets.all(0),
+            onPressed: () => Navigator.of(context).pop(),
+            child: Icon(Icons.chevron_left, color: AppTheme.blueGrey!),
+          ),
         ),
         actions: [
-          StreamBuilder<BookModel>(
-              stream: firestoreDatabase.bookStream(bookId: book.id),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return MaterialButton(
-                    elevation: 0.0,
-                    visualDensity: VisualDensity.compact,
-                    shape: const CircleBorder(),
-                    color: Colors.blueGrey.withOpacity(0.1),
-                    padding: const EdgeInsets.all(0),
-                    onPressed: () => firestoreDatabase.deleteBook(book),
-                    child: Icon(Icons.bookmark, color: AppTheme.appColor),
-                  );
-                } else {
-                  return MaterialButton(
-                    elevation: 0.0,
-                    visualDensity: VisualDensity.compact,
-                    shape: const CircleBorder(),
-                    color: Colors.blueGrey.withOpacity(0.1),
-                    padding: const EdgeInsets.all(0),
-                    onPressed: () => firestoreDatabase.setBook(book),
-                    child: Icon(Icons.bookmark_add_outlined,
-                        color: AppTheme.appColor),
-                  );
-                }
-              }),
+          Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: StreamBuilder<BookModel>(
+                stream: firestoreDatabase.bookStream(bookId: book.id),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return MaterialButton(
+                      elevation: 0.0,
+                      visualDensity: VisualDensity.compact,
+                      shape: const CircleBorder(),
+                      color: Colors.blueGrey.withOpacity(0.1),
+                      padding: const EdgeInsets.all(0),
+                      onPressed: () => firestoreDatabase.deleteBook(book),
+                      child: Icon(Icons.bookmark, color: AppTheme.appColor),
+                    );
+                  } else {
+                    return MaterialButton(
+                      elevation: 0.0,
+                      visualDensity: VisualDensity.compact,
+                      shape: const CircleBorder(),
+                      color: Colors.blueGrey.withOpacity(0.1),
+                      padding: const EdgeInsets.all(0),
+                      onPressed: () => firestoreDatabase.setBook(book),
+                      child: Icon(Icons.bookmark_add_outlined,
+                          color: AppTheme.appColor),
+                    );
+                  }
+                }),
+          ),
         ],
         backgroundColor: Colors.transparent,
         elevation: 0,
