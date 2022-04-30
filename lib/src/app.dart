@@ -116,8 +116,9 @@ class MyApp extends StatelessWidget {
                             : const SignInScreen();
                       }
 
-                      return const Material(
-                        child: Center(child: CircularProgressIndicator()),
+                      return Container(
+                        color: Colors.transparent,
+                        child: const Center(child: CircularProgressIndicator()),
                       );
                     },
                   ),
